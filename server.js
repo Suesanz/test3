@@ -107,70 +107,78 @@ db.query(q8, (err, result) => {
     console.log(result)
 })
 
-const e = 35;
-let p = []
-let resultmail = []
+
 cron.schedule('* * 23 * *', function () {
+    const e = 35;
+    let p = []
+    let resultmail = []
     let presc = `select mail from patient_master where prescription_date + ${e} <curdate() and survey=0`
     db.query(presc, (err, result_mail) => {
         if (err)
             throw err
-        // p = result_mail
+        p = result_mail
+        console.log(p)
         a(result_mail)
     })
     let a = function (value) {
         resultmail = value;
         p = resultmail;
+        console.log(p)
         return resultmail
     }
-});
-console.log(p)
+    console.log(p)
+    // console.log("hdgfkd")
+
+
 //database ended///
 /////case 1
 
 // cron.schedule('* * * * *', function () {
-const output = `<p>Complete your survey!!</p>
+    const output = `<p>Complete your survey!!</p>
 
 
  <h4>Thanks!</h4>
  `
-for (let propp in p) {
-    console.log("jashdkjsdh")
-    let transporter = nodemailer.createTransport({
-        // host: 'smtp.gmail.com',
-        // port: 587,
-        // secure: true, // true for 465, false for other ports
-        service: 'gmail',
-        auth: {
-            user: 'anthe2067@gmail.com', // generated ethereal user
-            pass: '24suesanz07' // generated ethereal password
-        }
-    });
+    for (let propp in p) {
+        console.log("jashdkjsdh")
+        let transporter = nodemailer.createTransport({
+            // host: 'smtp.gmail.com',
+            // port: 587,
+            // secure: true, // true for 465, false for other ports
+            service: 'gmail',
+            auth: {
+                user: 'anthe2067@gmail.com', // generated ethereal user
+                pass: '24suesanz07' // generated ethereal password
+            }
+        });
 
 // setup email data with unicode symbols
-    let mailOptions = {
-        from: '"Loreum ipsum" <anthe2067@gmail.com>', // sender address
-        to: p[propp], // list of receivers
-        subject: 'Purchased', // Subject line
-        text: 'Hello world?', // plain text body
-        html: output // html body
-    };
+        let mailOptions = {
+            from: '"Loreum ipsum" <anthe2067@gmail.com>', // sender address
+            to: p[propp], // list of receivers
+            subject: 'For_testing_purpose', // Subject line
+            text: 'Hello world?', // plain text body
+            html: output // html body
+        };
 
 // send mail with defined transport object
-    transporter.sendMail(mailOptions, (error, info) => {
-        if (error) {
-            return console.log(error);
-        }
-        console.log('Message sent: %s', info.messageId);
-        console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
+        transporter.sendMail(mailOptions, (error, info) => {
+            if (error) {
+                return console.log(error);
+            }
+            console.log('Message sent: %s', info.messageId);
+            console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
 
-        // s.render('index', {msg: "Email sent"})
-    });
+            // s.render('index', {msg: "Email sent"})
+        });
 
-}
+    }
+});
 // });
 //case2//
 cron.schedule('* * * * 5', function () {
+    let p = []
+    let resultmail = []
     let presc = `select mail from patient_master where survey=0`
     db.query(presc, (err, result_mail) => {
         if (err)
@@ -182,42 +190,47 @@ cron.schedule('* * * * 5', function () {
         resultmail = value;
         return resultmail
     }
-});
+    const output = `<p>Complete your survey!!</p>
 
-for (let propp in p) {
-    // console.log("jashdkjsdh")
-    let transporter = nodemailer.createTransport({
-        // host: 'smtp.gmail.com',
-        // port: 587,
-        // secure: true, // true for 465, false for other ports
-        service: 'gmail',
-        auth: {
-            user: 'anthe2067@gmail.com', // generated ethereal user
-            pass: '24suesanz07' // generated ethereal password
-        }
-    });
+
+ <h4>Thanks!</h4>
+ `
+
+    for (let propp in p) {
+        // console.log("jashdkjsdh")
+        let transporter = nodemailer.createTransport({
+            // host: 'smtp.gmail.com',
+            // port: 587,
+            // secure: true, // true for 465, false for other ports
+            service: 'gmail',
+            auth: {
+                user: 'anthe2067@gmail.com', // generated ethereal user
+                pass: '24suesanz07' // generated ethereal password
+            }
+        });
 
 // setup email data with unicode symbols
-    let mailOptions = {
-        from: '"Loreum ipsum" <anthe2067@gmail.com>', // sender address
-        to: p[propp], // list of receivers
-        subject: 'Purchased', // Subject line
-        text: 'Hello world?', // plain text body
-        html: output // html body
-    };
+        let mailOptions = {
+            from: '"Loreum ipsum" <anthe2067@gmail.com>', // sender address
+            to: p[propp], // list of receivers
+            subject: 'For_testing_purpose', // Subject line
+            text: 'Hello world?', // plain text body
+            html: output // html body
+        };
 
 // send mail with defined transport object
-    transporter.sendMail(mailOptions, (error, info) => {
-        if (error) {
-            return console.log(error);
-        }
-        console.log('Message sent: %s', info.messageId);
-        console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
+        transporter.sendMail(mailOptions, (error, info) => {
+            if (error) {
+                return console.log(error);
+            }
+            console.log('Message sent: %s', info.messageId);
+            console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
 
-        // s.render('index', {msg: "Email sent"})
-    });
+            // s.render('index', {msg: "Email sent"})
+        });
 
-}
+    }
+});
 ////
 app.listen(3232, () => {
     console.log("server started on 3232")
