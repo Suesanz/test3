@@ -123,7 +123,7 @@ cron.schedule('* * 23 * *', function () {
                 service: 'gmail',
                 auth: {
                     user: 'anthe2067@gmail.com', // generated ethereal user
-                    pass: '24suesanz07' // generated ethereal password
+                    pass: '******' // generated ethereal password
                 }
             });
 
@@ -178,7 +178,7 @@ cron.schedule('* * * * 5', function () {
                 service: 'gmail',
                 auth: {
                     user: 'anthe2067@gmail.com', // generated ethereal user
-                    pass: '24suesanz07' // generated ethereal password
+                    pass: '*******' // generated ethereal password
                 }
             });
 
